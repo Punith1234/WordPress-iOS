@@ -234,6 +234,9 @@ import SVProgressHUD
             return
         }
 
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
+
         var successMessage: String
         var errorMessage: String
         var errorTitle: String
@@ -253,11 +256,11 @@ import SVProgressHUD
         postService.toggleFollowing(for: post,
                                     success: {
                                         SVProgressHUD.showSuccess(withStatus: successMessage)
-                                        WPNotificationFeedbackGenerator.notificationOccurred(.success)
+                                        generator.notificationOccurred(.success)
                                     },
                                     failure: { (error: Error?) in
                                         SVProgressHUD.dismiss()
-                                        WPNotificationFeedbackGenerator.notificationOccurred(.error)
+                                        generator.notificationOccurred(.error)
 
                                         let cancelTitle = NSLocalizedString("OK", comment: "Text of an OK button to dismiss a prompt.")
                                         let alertController = UIAlertController(title: errorTitle,
